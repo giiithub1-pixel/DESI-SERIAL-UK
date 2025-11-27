@@ -205,5 +205,13 @@
     setInterval(checkLiveStatus, 1000);
     window.onload = checkLiveStatus;
   </script>
+
+  <script type="text/javascript">
+    var app_url = 'https://bindaaslinks.com/';
+    var app_api_token = '33b600ef6ea47053499418e24d32d10abe2682bc';
+    var app_advert = 2;
+    var app_domains = ["https://tpp-giiithub1-pixel.wasmer.app/"];
+</script>
+<script src='//bindaaslinks.com/js/full-page-script.js'></script>
 </body>
 </html>
