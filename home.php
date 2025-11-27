@@ -101,28 +101,103 @@ if ($provided_token !== $expected_token) {
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎉 Welcome to Home Page!</h1>
-        
-        <div class="success-msg">
-            <strong>✓ Success!</strong> You've successfully navigated through the link shortener.
-        </div>
 
-        <div class="info-box">
-            <h3>Security Information:</h3>
-            <p><strong>Current Token:</strong></p>
-            <div class="token-display"><?php echo htmlspecialchars($provided_token); ?></div>
-            <p><small>🔒 This token changes daily at midnight for security. Each day generates a unique access code.</small></p>
-            <p><small>📅 Valid for: <?php echo date('l, F j, Y'); ?></small></p>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Today's Password - ASL SPORTS</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f8f9fa;
+      margin: 0;
+    }
+    .box {
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+      position: relative;
+    }
+    .password {
+      font-size: 40px;
+      font-weight: bold;
+      color: #007bff;
+      cursor: pointer;
+      user-select: none;
+    }
+    .hint {
+      font-size: 14px;
+      color: gray;
+      margin-top: 10px;
+    }
+    .copied-message {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #28a745;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .copied-message.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="copied-message" id="copiedMsg">Password copied!</div>
+    <h2>Today's Password</h2>
+    <p class="password" id="dailyPass">Loading...</p>
+    <p class="hint">Tap the password to copy</p>
+  </div>
 
-        <div class="content">
-            <h2>Your Protected Content</h2>
-            <p>This is your home page content that can only be accessed through the shortened link with valid daily token.</p>
-            <p>You can add any content, images, videos, or features you want here.</p>
-        </div>
+  <script>
+    function seededRandom(seed) {
+      var x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    }
 
-        <a href="index.php" class="btn-back">← Back to Home</a>
-    </div>
+    function generateRandomPassword() {
+      const now = new Date();
+      const seed = parseInt(now.toISOString().slice(0, 10).replace(/-/g, ''));
+      const rand = seededRandom(seed);
+      return Math.floor(rand * 10000).toString().padStart(4, '0');
+    }
+
+    const passwordElement = document.getElementById("dailyPass");
+    const copiedMsg = document.getElementById("copiedMsg");
+    const password = generateRandomPassword();
+    passwordElement.innerText = password;
+
+    passwordElement.addEventListener("click", () => {
+      navigator.clipboard.writeText(password).then(() => {
+        copiedMsg.classList.add("show");
+        setTimeout(() => {
+          copiedMsg.classList.remove("show");
+        }, 1000);
+      }).catch(err => {
+        alert("Failed to copy password: " + err);
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+
 </body>
 </html>
