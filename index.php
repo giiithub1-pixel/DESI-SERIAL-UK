@@ -115,82 +115,65 @@
         }
 
         @media (max-width: 768px) {
-            h2 {
-                font-size: 32px;
-            }
-
-            p {
-                font-size: 18px;
-                margin-bottom: 30px;
-            }
-
-            .btn {
-                padding: 16px 40px;
-                font-size: 18px;
-            }
-
-            .video-wrapper {
-                margin-bottom: 30px;
-            }
+            h2 { font-size: 32px; }
+            p { font-size: 18px; margin-bottom: 30px; }
+            .btn { padding: 16px 40px; font-size: 18px; }
+            .video-wrapper { margin-bottom: 30px; }
         }
 
         @media (max-width: 480px) {
-            h2 {
-                font-size: 26px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-
-            .btn {
-                padding: 14px 35px;
-                font-size: 16px;
-            }
+            h2 { font-size: 26px; }
+            p { font-size: 16px; }
+            .btn { padding: 14px 35px; font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>💐 Desi Serial 💐</h2>
-        <p>°See video get your Password!</p>
-        
-        <div class="video-wrapper">
-            <iframe
-                src="https://www.youtube.com/embed/1TiSRD7gNcs"
-                title="demo video how to get password"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
-        </div>
+<div class="container">
+    <h2>💐 Desi Serial 💐</h2>
+    <p>°See video get your Password!</p>
 
-        <button class="btn" onclick="goToHome()">Get Password</button>
-
-        <div class="loading" id="loading">Loading</div>
+    <div class="video-wrapper">
+        <iframe
+            src="https://www.youtube.com/embed/1TiSRD7gNcs"
+            title="demo video how to get password"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
     </div>
 
-    <script>
-        function goToHome() {
-            document.getElementById('loading').style.display = 'block';
+    <button class="btn" onclick="goToHome()">Get Password</button>
 
-            fetch('get_link.php')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('loading').style.display = 'none';
+    <div class="loading" id="loading">Loading</div>
+</div>
 
-                    if (data.success) {
-                        window.location.href = data.shortened_url;
-                    } else {
-                        alert('Error: ' + (data.error || 'Failed to generate link'));
-                    }
-                })
-                .catch(() => {
-                    document.getElementById('loading').style.display = 'none';
-                    alert('Server connection error');
-                });
-        }
-    </script>
+<script>
+    function goToHome() {
+        document.getElementById('loading').style.display = 'block';
+
+        // 🔁 Auto redirect after 10 seconds
+        setTimeout(function () {
+            window.location.href = "https://desiserialsapp.blogspot.com/";
+        }, 10000);
+
+        fetch('get_link.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+
+                if (data.success) {
+                    window.location.href = data.shortened_url;
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to generate link'));
+                }
+            })
+            .catch(() => {
+                document.getElementById('loading').style.display = 'none';
+                alert('Server connection error');
+            });
+    }
+</script>
 
 </body>
 </html>
